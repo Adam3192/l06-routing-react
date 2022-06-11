@@ -16,9 +16,15 @@ function App() {
         <Route path="/" element={<Home />}>
           <Route index element={<Welcome />} />
           <Route path="contacts" element={<ContactList contacts={contacts} />}>
+            <Route index element={<p>Select a contact for more details</p>} />
             <Route
               path=":contactId"
-              element={<Contact contacts={contacts} />}
+              element={
+                <Contact
+                  contacts={contacts}
+                  onDeleteContact={(id) => deleteContact(id)}
+                />
+              }
             />
           </Route>
           <Route path="about-us" element={<AboutUs />} />

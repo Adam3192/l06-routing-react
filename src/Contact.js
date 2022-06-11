@@ -1,12 +1,19 @@
 import Card from 'react-bootstrap/Card'
-import { useParams } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
+import { useParams, useNavigate } from 'react-router-dom'
 
 function Contact(props) {
+  let navigate = useNavigate()
   let params = useParams()
   let contact = props.contacts.find(
     (contact) => contact.id === params.contactId
   )
   let { id, name, email, phone, avatar } = contact
+
+  function handleDeleteContact(id) {
+    props.onDeleteContact(id)
+    navigate('/contacts')
+  }
 
   return (
     <Card className="align-self-start w-25">
@@ -17,6 +24,9 @@ function Contact(props) {
         <Card.Text>
           <strong>Phone:</strong> <span>{phone}</span>
         </Card.Text>
+        <Button variant="danger" onClick={handleDeleteContact.bind(this, id)}>
+          Delete
+        </Button>
       </Card.Body>
     </Card>
   )
