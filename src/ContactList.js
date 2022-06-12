@@ -9,9 +9,12 @@ function ContactList(props) {
   let [searchParams, setSearchParams] = useSearchParams()
 
   function contacts() {
-    if (props.contacts === null) return
+    if (props.contacts === null) {
+      return
+    }
+
     return props.contacts.map((contact) => (
-      <ListGroup.Item key={contact.id}>
+      <ListGroup.Item key={contact.id} variant={variantFor(contact.name)}>
         <Link to={`/contacts/${contact.id}`} key={contact.id}>
           {contact.name}
         </Link>
@@ -27,7 +30,7 @@ function ContactList(props) {
 
   function variantFor(name) {
     let query = searchParams.get('query')
-    return name.search(query) >= 0 ? 'success' : ''
+    return name.search(query) >= 0 ? 'primary' : ''
   }
 
   return (

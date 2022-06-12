@@ -5,9 +5,12 @@ import { useParams, useNavigate } from 'react-router-dom'
 function Contact(props) {
   let navigate = useNavigate()
   let params = useParams()
-  let contact = props.contacts.find(
-    (contact) => contact.id === params.contactId
-  )
+  let contact = props.contacts.find(contact => contact.id === params.contactId);
+  
+  if (contact ===  undefined) { 
+    return <p>Contact Not Found.</p> 
+  }
+  
   let { id, name, email, phone, avatar } = contact
 
   function handleDeleteContact(id) {
